@@ -180,6 +180,23 @@
     .contact-right{background:var(--charcoal);padding:80px 60px;display:flex;flex-direction:column;justify-content:center;}
     .contact-right h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:0.06em;color:var(--white);margin-bottom:28px;}
     .footer-bottom-text{font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--mid);}
+    /* HAMBURGER */
+    .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px;z-index:101;width:40px;height:40px;}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;transition:transform 0.3s ease,opacity 0.3s ease;}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:199;backdrop-filter:blur(2px);}
+    .mobile-overlay.open{display:block;}
+    .mobile-menu{position:fixed;top:0;right:-100%;width:min(320px,85vw);height:100vh;background:var(--iron);border-left:2px solid var(--orange);z-index:200;padding:80px 36px 40px;transition:right 0.35s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;box-shadow:-8px 0 40px rgba(0,0,0,0.5);}
+    .mobile-menu.open{right:0;}
+    .mobile-close{position:absolute;top:22px;right:22px;background:none;border:1px solid rgba(255,255,255,0.15);color:var(--sand);font-size:18px;cursor:pointer;line-height:1;width:36px;height:36px;display:flex;align-items:center;justify-content:center;transition:color 0.2s,border-color 0.2s;}
+    .mobile-close:hover{color:var(--orange);border-color:var(--orange);}
+    .mobile-nav{display:flex;flex-direction:column;}
+    .mobile-nav a{font-family:'Barlow Condensed',sans-serif;font-size:24px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--bone);text-decoration:none;padding:14px 0;border-bottom:1px solid rgba(255,255,255,0.07);transition:color 0.2s,padding-left 0.2s;}
+    .mobile-nav a:hover{color:var(--orange);padding-left:6px;}
+    .mobile-cta{color:var(--orange)!important;}
+    @media(max-width:768px){.hamburger{display:flex;}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
     @media(max-width:1100px){.hero{grid-template-columns:1fr;}.hero-right{padding:0 40px 48px;}.hero-photos{grid-template-columns:repeat(3,1fr);}.hero-photo:first-child{grid-column:span 3;height:220px;}.photo-strip{grid-template-columns:1fr 1fr;}.process-grid{grid-template-columns:1fr 1fr;}.footer-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:1100px){.contact-wrap{grid-template-columns:1fr;}}
@@ -220,9 +237,38 @@
     <a href="#why">About</a>
     <a href="#process">Process</a>
     <a href="#reviews">Reviews</a>
-    
+    <a href="#contact" class="nav-cta">Free Walkthrough</a>
   </nav>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-overlay" id="menuOverlay" onclick="toggleMenu()"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" onclick="toggleMenu()" aria-label="Close menu">&#10005;</button>
+  <nav class="mobile-nav">
+    <a href="#services" onclick="toggleMenu()">Services</a>
+    <a href="#work" onclick="toggleMenu()">Our Work</a>
+    <a href="#why" onclick="toggleMenu()">About</a>
+    <a href="#process" onclick="toggleMenu()">Process</a>
+    <a href="#reviews" onclick="toggleMenu()">Reviews</a>
+    <a href="#contact" onclick="toggleMenu()" class="mobile-cta">Free Walkthrough</a>
+  </nav>
+  <div style="margin-top:40px;padding-top:28px;border-top:1px solid rgba(255,255,255,0.08);display:flex;flex-direction:column;gap:16px;">
+    <a href="tel:6513378100" style="display:flex;align-items:center;gap:10px;color:var(--sand);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.1em;text-decoration:none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      651-337-8100
+    </a>
+    <a href="mailto:quotes@ruggeddesign.net" style="display:flex;align-items:center;gap:10px;color:var(--sand);font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:600;letter-spacing:0.1em;text-decoration:none;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      quotes@ruggeddesign.net
+    </a>
+  </div>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -389,10 +435,7 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           651-337-8100 (Call or Text)
         </a>
-        <a href="mailto:quotes@ruggeddesign.net" style="display:flex;align-items:center;gap:12px;color:var(--bone);font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;letter-spacing:0.06em;text-decoration:none;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          quotes@ruggeddesign.net
-        </a>
+        <a href="mailto:quotes@ruggeddesign.net" class="contact-item"><svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>quotes@ruggeddesign.net</a>
         <div style="display:flex;align-items:center;gap:12px;color:var(--bone);font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:600;letter-spacing:0.06em;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
           Twin Cities Metro, Minnesota
@@ -407,7 +450,7 @@
     <!-- RIGHT: form -->
     <div style="background:var(--charcoal);padding:48px 40px;">
       <h3 style="font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.06em;color:var(--white);margin-bottom:28px;">REQUEST YOUR FREE ESTIMATE</h3>
-      <form action="https://formspree.io/f/mjgpeqbk" method="POST">
+      <form id="estimateForm" action="https://formspree.io/f/mjgpeqbk" method="POST">
         <div class="form-row">
           <div class="form-group"><label>First Name</label><input type="text" name="first_name" placeholder="John" required/></div>
           <div class="form-group"><label>Last Name</label><input type="text" name="last_name" placeholder="Smith" required/></div>
@@ -434,6 +477,19 @@
 
   </div>
 </section>
+
+<!-- THANK YOU MESSAGE (shown after form submit) -->
+<div id="thankYou" style="display:none;position:fixed;inset:0;background:rgba(15,14,12,0.92);z-index:500;display:none;align-items:center;justify-content:center;">
+  <div style="background:var(--iron);border:2px solid var(--orange);padding:60px 48px;max-width:480px;width:90%;text-align:center;position:relative;">
+    <div style="width:64px;height:64px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:0.06em;color:var(--white);margin-bottom:12px;">Request Sent!</h3>
+    <p style="font-size:15px;line-height:1.7;color:var(--sand);margin-bottom:28px;">Thanks for reaching out! We&#8217;ll get back to you within 24 hours to schedule your free walkthrough.</p>
+    <p style="font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:0.1em;color:var(--orange);margin-bottom:28px;">Or call us directly: <a href="tel:6513378100" style="color:var(--orange);">651-337-8100</a></p>
+    <button onclick="closeThankYou()" style="background:var(--orange);color:white;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:14px 32px;border:none;cursor:pointer;">Close</button>
+  </div>
+</div>
 
 <footer>
   <div class="footer-grid">
@@ -466,5 +522,61 @@
   </div>
 </footer>
 
+
+<script>
+  document.getElementById('estimateForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = this.querySelector('button[type="submit"]');
+    var orig = btn.innerHTML;
+    btn.innerHTML = 'Sending...';
+    btn.disabled = true;
+    try {
+      var res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        this.reset();
+        var modal = document.getElementById('thankYou');
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      } else {
+        btn.innerHTML = orig;
+        btn.disabled = false;
+        alert('Something went wrong. Please call us at 651-337-8100');
+      }
+    } catch(err) {
+      btn.innerHTML = orig;
+      btn.disabled = false;
+      alert('Something went wrong. Please call us at 651-337-8100');
+    }
+  });
+
+  function closeThankYou() {
+    document.getElementById('thankYou').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+</script>
+
+<script>
+  function toggleMenu() {
+    var menu = document.getElementById('mobileMenu');
+    var overlay = document.getElementById('menuOverlay');
+    var btn = document.getElementById('hamburgerBtn');
+    var isOpen = menu.classList.contains('open');
+    menu.classList.toggle('open');
+    overlay.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  }
+  // Close on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('open')) toggleMenu();
+    }
+  });
+</script>
 </body>
 </html>
